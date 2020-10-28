@@ -6,7 +6,7 @@ function ajax(path) {
             if (path === "/user") {
                 resolve({
                     id: 1,
-                    name: "Frank"
+                    name: "McCall"
                 });
             } else if (path === "/books") {
                 resolve([
@@ -27,7 +27,7 @@ function ajax(path) {
                     },
                     {
                         id: 2,
-                        name: "恋恋笔记本"
+                        name: "爱在日落黄昏时"
                     }
                 ]);
             }
