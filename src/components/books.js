@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Context from '../Context'
 import ajax from '../ajax'
 
@@ -8,7 +8,12 @@ const Books = () => {
 
     const { state, dispatch } = useContext(Context)
 
-    ajax('/books').then((books) => { dispatch({ type: "setBooks", books: books }) })
+    useEffect(() => {
+
+        ajax('/books').then((books) => { dispatch({ type: "setBooks", books: books }) })
+    }, [])
+
+
 
     return (
         <div>

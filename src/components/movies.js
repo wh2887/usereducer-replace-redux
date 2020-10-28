@@ -1,11 +1,14 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import ajax from '../ajax'
 import Context from '../Context'
 
 const Movies = () => {
     const { state, dispatch } = useContext(Context)
 
-    ajax('/movies').then(movies => { dispatch({ type: "setMovies", movies: movies }) })
+    useEffect(() => {
+
+        ajax('/movies').then(movies => { dispatch({ type: "setMovies", movies: movies }) })
+    }, [])
 
     return (
         <div>
