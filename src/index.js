@@ -1,8 +1,48 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import Books from './components/books';
+import Movies from './components/movies';
+import User from './components/user';
+import userReducer from './reducers/user_reducer'
+import moviesReducer from './reducers/movies_reducer'
+import booksReducer from './reducers/books_reducer'
+import stores from './stores/index'
+import Context from './Context'
+
+
+const obj = {
+  ...userReducer,
+  ...booksReducer,
+  ...moviesReducer
+}
+
+const reducer = (state, action) => {
+  const fn = obj[action.type]
+  if (fn) {
+    return fn(state, action)
+  } else {
+    throw new Error('unknown type!')
+  }
+}
+
+
+
+const App = () => {
+
+  const [state, dispatch] = useReducer(reducer, stores)
+
+  const api = { state, dispatch }
+
+  return (
+    <Context.Provider value={api}>
+      <h1>如何使用 useReducer 代替 Redux</h1>
+      <User />
+      <hr />
+      <Books />
+      <Movies />
+    </Context.Provider>
+  )
+}
 
 ReactDOM.render(
   <React.StrictMode>
@@ -10,8 +50,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
